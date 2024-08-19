@@ -1,0 +1,80 @@
+name: nurseway_app
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.2 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  firebase_core: ^3.1.1
+  cloud_firestore: ^5.0.2
+  google_fonts: ^6.2.1
+  url_launcher: ^6.3.0
+  animations: ^2.0.0
+  intl: ^0.17.0
+  pdf: ^3.6.4
+  printing: ^5.9.2
+  flutter_table: ^1.0.1
+  firebase_auth: ^5.1.1
+  firebase_crashlytics: ^4.0.2
+  firebase_messaging: ^15.0.2
+  firebase_remote_config: ^5.0.2
+  firebase_storage: ^12.1.0
+  file_picker: ^5.5.0
+  image_gallery_saver: ^1.7.1
+  permission_handler: ^10.2.0
+  shared_preferences: ^2.2.3
+  marquee: ^2.2.3
+  font_awesome_flutter: ^10.1.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+  multi_select_flutter: ^4.0.0
+  image_picker: ^1.1.2
+  flutter_dotenv: ^5.1.0
+  googleapis: ^13.2.0
+  googleapis_auth: ^1.6.0
+  animated_text_kit: ^4.2.2
+  in_app_purchase: ^3.2.0
+  google_mobile_ads: ^5.1.0
+  webview_flutter: ^4.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+    - assets/fonts/Murecho/static/Murecho-Thin.ttf
+    - assets/fonts/Murecho/static/Murecho-ExtraLight.ttf
+    - assets/fonts/Murecho/static/Murecho-Light.ttf
+    - assets/fonts/Murecho/static/Murecho-Regular.ttf
+    - assets/fonts/Murecho/static/Murecho-Medium.ttf
+    - assets/fonts/Murecho/static/Murecho-SemiBold.ttf
+    - assets/fonts/Murecho/static/Murecho-Bold.ttf
+    - assets/fonts/Murecho/static/Murecho-ExtraBold.ttf
+    - assets/fonts/Murecho/static/Murecho-Black.ttf
+    - assets/images/student1.png
+    - assets/images/student2.png
+    - assets/images/student3.png
+    - assets/images/student4.png
+    - assets/images/student5.png
+    - assets/images/nursecat.jpg
+    - assets/images/nurse1.png
+    - assets/images/nurse2.png
+    - assets/images/nurse3.png
+    - assets/images/nurse4.png
+    - assets/images/nurse5.png
+    - assets/images/job1.png
+    - assets/images/job2.png
+    - assets/images/job3.png
+    - assets/images/job4.png
+    - assets/images/job5.png

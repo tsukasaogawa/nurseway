@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "194883924746",
+    "project_id": "nursewayapp",
+    "storage_bucket": "nursewayapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194883924746:android:3fb6effc1c6945d72dc0f3",
+        "android_client_info": {
+          "package_name": "com.example.nurseway_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194883924746-rtur04s2mhhb5q8pa5ntbqiovbg49fjn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nurseway_app",
+            "certificate_hash": "71670938aac36f03753f0f2a4af3c08783936ce9"
+          }
+        },
+        {
+          "client_id": "194883924746-ts5u5qvh7uqq04ilieek2qt222mkc3mt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFulq1NCYQbX1TkUFlbDidmgB6zrGe18U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194883924746-ts5u5qvh7uqq04ilieek2qt222mkc3mt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "194883924746-dodgkekl2829ahnjfcupj50kt6kp3tk9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nursewayApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194883924746:android:33e6e0f04a848a192dc0f3",
+        "android_client_info": {
+          "package_name": "com.otmhvecu.nurseway_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194883924746-ts5u5qvh7uqq04ilieek2qt222mkc3mt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFulq1NCYQbX1TkUFlbDidmgB6zrGe18U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194883924746-ts5u5qvh7uqq04ilieek2qt222mkc3mt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "194883924746-dodgkekl2829ahnjfcupj50kt6kp3tk9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nursewayApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
