@@ -206,14 +206,14 @@ class _DrugManagementPageState extends State<DrugManagementPage> with SingleTick
                         duration: const Duration(milliseconds: 500),
                         child: showCorrectAnimation
                             ? CustomPaint(
-                          size: const Size(200, 200),
-                          painter: RingPainter(Colors.blue),
-                        )
+                                size: const Size(200, 200),
+                                painter: RingPainter(Colors.blue),
+                              )
                             : const Icon(
-                          Icons.close,
-                          color: Colors.red,
-                          size: 200,
-                        ),
+                                Icons.close,
+                                color: Colors.red,
+                                size: 200,
+                              ),
                       ),
                     ),
                   );
@@ -265,14 +265,14 @@ class _DrugManagementPageState extends State<DrugManagementPage> with SingleTick
                         if (selectedAnswer.isNotEmpty)
                           option == question.correctAnswer
                               ? CustomPaint(
-                            size: const Size(24, 24),
-                            painter: RingPainter(Colors.blue),
-                          )
+                                  size: const Size(24, 24),
+                                  painter: RingPainter(Colors.blue),
+                                )
                               : const Icon(
-                            Icons.close,
-                            color: Colors.red,
-                            size: 24,
-                          ),
+                                  Icons.close,
+                                  color: Colors.red,
+                                  size: 24,
+                                ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
@@ -324,20 +324,21 @@ class _DrugManagementPageState extends State<DrugManagementPage> with SingleTick
                         ),
                       ),
                       const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: _nextPage,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                          backgroundColor: const Color(0xFFFFC0CB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                      if (_currentPage < drugEffectsAndManagementQuestions.length - 1)
+                        ElevatedButton(
+                          onPressed: _nextPage,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                            backgroundColor: const Color(0xFFFFC0CB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            '次の問題へ',
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                         ),
-                        child: const Text(
-                          '次の問題へ',
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -368,8 +369,8 @@ class _DrugManagementPageState extends State<DrugManagementPage> with SingleTick
         duration: const Duration(milliseconds: 500),
         child: Icon(
           icon,
-          color: color, // 色を指定
-          size: size,   // サイズを指定
+          color: color,
+          size: size,
         ),
       ),
     );

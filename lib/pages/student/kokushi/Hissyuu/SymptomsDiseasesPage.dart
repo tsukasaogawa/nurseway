@@ -271,8 +271,7 @@ class _SymptomsDiseasesPageState extends State<SymptomsDiseasesPage> with Single
                               : const Icon(
                             Icons.close,
                             color: Colors.red,
-                            size: 24,
-                          ),
+                            size: 24),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
@@ -324,20 +323,21 @@ class _SymptomsDiseasesPageState extends State<SymptomsDiseasesPage> with Single
                         ),
                       ),
                       const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: _nextPage,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                          backgroundColor: const Color(0xFFFFC0CB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                      if (_currentPage < symptomsAndDiseasesQuestions.length - 1)
+                        ElevatedButton(
+                          onPressed: _nextPage,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                            backgroundColor: const Color(0xFFFFC0CB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            '次の問題へ',
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                         ),
-                        child: const Text(
-                          '次の問題へ',
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
                     ],
                   ),
                 ),

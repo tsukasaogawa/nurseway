@@ -324,20 +324,21 @@ class _SafetyComfortTechniquesPageState extends State<SafetyComfortTechniquesPag
                         ),
                       ),
                       const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: _nextPage,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                          backgroundColor: const Color(0xFFFFC0CB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                      if (_currentPage < patientSafetyTechniquesQuestions.length - 1)
+                        ElevatedButton(
+                          onPressed: _nextPage,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                            backgroundColor: const Color(0xFFFFC0CB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            '次の問題へ',
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                         ),
-                        child: const Text(
-                          '次の問題へ',
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
                     ],
                   ),
                 ),

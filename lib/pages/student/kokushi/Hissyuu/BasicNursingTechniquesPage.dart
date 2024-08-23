@@ -36,7 +36,6 @@ class _BasicNursingTechniquesPageState extends State<BasicNursingTechniquesPage>
     _pageController = PageController(initialPage: widget.lastCompletedQuestion);
     _currentPage = widget.lastCompletedQuestion;
 
-    // _resetProgress() の自動呼び出しを削除
     if (widget.lastCompletedQuestion != 0) {
       _loadProgress();
     }
@@ -66,7 +65,6 @@ class _BasicNursingTechniquesPageState extends State<BasicNursingTechniquesPage>
   Future<void> _loadProgress() async {
     final HissyuuProgressService progressService = HissyuuProgressService();
     Map<String, int> progress = await progressService.loadProgress();
-    print('Loaded progress: $progress'); // ログを追加してロード状況を確認
     setState(() {
       _completedQuestions = List<int>.filled(basicNursingTechniquesQuestions.length, 0);
       for (int i = 0; i < progress['basicNursingTechniquesCompleted']!; i++) {
@@ -115,7 +113,6 @@ class _BasicNursingTechniquesPageState extends State<BasicNursingTechniquesPage>
     final completedCount = _completedQuestions.where((q) => q == 1).length;
     await progressService.saveProgress('basicNursingTechniquesCompleted', completedCount);
     widget.onProgressUpdate(completedCount);
-    print('Progress saved: $completedCount');
   }
 
   void _selectAnswer(String answer, String correctAnswer) {
@@ -208,14 +205,14 @@ class _BasicNursingTechniquesPageState extends State<BasicNursingTechniquesPage>
                         duration: const Duration(milliseconds: 500),
                         child: showCorrectAnimation
                             ? CustomPaint(
-                          size: const Size(200, 200),
-                          painter: RingPainter(Colors.blue),
-                        )
+                                size: const Size(200, 200),
+                                painter: RingPainter(Colors.blue),
+                              )
                             : const Icon(
-                          Icons.close,
-                          color: Colors.red,
-                          size: 200,
-                        ),
+                                Icons.close,
+                                color: Colors.red,
+                                size: 200,
+                              ),
                       ),
                     ),
                   );
@@ -267,14 +264,14 @@ class _BasicNursingTechniquesPageState extends State<BasicNursingTechniquesPage>
                         if (selectedAnswer.isNotEmpty)
                           option == question.correctAnswer
                               ? CustomPaint(
-                            size: const Size(24, 24),
-                            painter: RingPainter(Colors.blue),
-                          )
+                                  size: const Size(24, 24),
+                                  painter: RingPainter(Colors.blue),
+                                )
                               : const Icon(
-                            Icons.close,
-                            color: Colors.red,
-                            size: 24,
-                          ),
+                                  Icons.close,
+                                  color: Colors.red,
+                                  size: 24,
+                                ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
@@ -326,20 +323,21 @@ class _BasicNursingTechniquesPageState extends State<BasicNursingTechniquesPage>
                         ),
                       ),
                       const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: _nextPage,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                          backgroundColor: const Color(0xFFFFC0CB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                      if (_currentPage < basicNursingTechniquesQuestions.length - 1)
+                        ElevatedButton(
+                          onPressed: _nextPage,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                            backgroundColor: const Color(0xFFFFC0CB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            '次の問題へ',
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                         ),
-                        child: const Text(
-                          '次の問題へ',
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
                     ],
                   ),
                 ),

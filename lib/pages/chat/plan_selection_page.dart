@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'AI_usage_guide_page.dart';
+import '../setting/AI_usage_guide_page.dart';
 import 'chat_page.dart';
 
 class PlanSelectionPage extends StatefulWidget {

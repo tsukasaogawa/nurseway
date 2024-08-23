@@ -40,7 +40,7 @@ class AIUsageExamplesPage extends StatelessWidget {
               const SizedBox(height: 16),
               _buildGuideSection(
                 '志望動機の作成',
-                '〇〇病院の特徴を踏まえ、志望動機を書いて',
+                '例としてABC病院の特徴を踏まえ、志望動機を書いて',
                 'assets/images/job1.png',
               ),
               const SizedBox(height: 16),
@@ -52,7 +52,7 @@ class AIUsageExamplesPage extends StatelessWidget {
               const SizedBox(height: 16),
               _buildGuideSection(
                 '自己PRの作成',
-                '急性期病棟で３年間勤務し、教育担当の経験がある。それらの点を踏まえて、自己PRを作成して。',
+                '急性期病棟で3年間勤務し、教育担当の経験もある。それらの点を踏まえて、自己PRを作成して',
                 'assets/images/job3.png',
               ),
               const SizedBox(height: 16),

@@ -212,8 +212,7 @@ class _SocialSecurityPageState extends State<SocialSecurityPage> with SingleTick
                             : const Icon(
                           Icons.close,
                           color: Colors.red,
-                          size: 200,
-                        ),
+                          size: 200),
                       ),
                     ),
                   );
@@ -271,8 +270,7 @@ class _SocialSecurityPageState extends State<SocialSecurityPage> with SingleTick
                               : const Icon(
                             Icons.close,
                             color: Colors.red,
-                            size: 24,
-                          ),
+                            size: 24),
                         const SizedBox(width: 10),
                         Expanded(
                           child: Text(
@@ -324,20 +322,21 @@ class _SocialSecurityPageState extends State<SocialSecurityPage> with SingleTick
                         ),
                       ),
                       const SizedBox(width: 20),
-                      ElevatedButton(
-                        onPressed: _nextPage,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                          backgroundColor: const Color(0xFFFFC0CB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                      if (_currentPage < nursingSocialSecurityQuestions.length - 1)
+                        ElevatedButton(
+                          onPressed: _nextPage,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                            backgroundColor: const Color(0xFFFFC0CB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            '次の問題へ',
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           ),
                         ),
-                        child: const Text(
-                          '次の問題へ',
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -368,8 +367,8 @@ class _SocialSecurityPageState extends State<SocialSecurityPage> with SingleTick
         duration: const Duration(milliseconds: 500),
         child: Icon(
           icon,
-          color: color, // 色を指定
-          size: size,   // サイズを指定
+          color: color,
+          size: size,
         ),
       ),
     );

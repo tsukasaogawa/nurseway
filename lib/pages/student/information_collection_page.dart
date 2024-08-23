@@ -71,12 +71,16 @@ class _InformationCollectionPageState extends State<InformationCollectionPage> {
         ),
       );
 
-      final output = await getTemporaryDirectory();
-      final file = File('${output.path}/information_collection.pdf');
+      // ドキュメントディレクトリのパスを取得
+      final directory = await getApplicationDocumentsDirectory();
+      final path = '${directory.path}/information_collection.pdf';
+
+      // ファイルに保存
+      final file = File(path);
       await file.writeAsBytes(await pdf.save());
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('PDFが保存されました: ${file.path}')),
+        SnackBar(content: Text('PDFが保存されました: $path')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

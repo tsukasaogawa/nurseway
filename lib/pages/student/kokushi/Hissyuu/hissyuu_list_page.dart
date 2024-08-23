@@ -235,41 +235,24 @@ class _HissyuuListPageState extends State<HissyuuListPage> {
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '健康の定義と理解', 19, healthDefinitionCompleted, 'healthDefinitionCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '健康に影響する要因', 23, healthFactorsCompleted, 'healthFactorsCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '看護で活用する社会保障', 10, socialSecurityCompleted, 'socialSecurityCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '看護における倫理', 13, nursingEthicsCompleted, 'nursingEthicsCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '看護に関わる基本的法律', 9, nursingLawCompleted, 'nursingLawCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '人間の特性', 13, humanCharacteristicsCompleted, 'humanCharacteristicsCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '人間のライフサイクル各期の特徴と生活', 39, lifeCycleCompleted, 'lifeCycleCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '看護の対象としての患者と家族', 9, patientFamilyCompleted, 'patientFamilyCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '主な看護活動の場と看護の機能', 5, nursingActivitiesCompleted, 'nursingActivitiesCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '人体の構造と機能', 10, bodyStructureCompleted, 'bodyStructureCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '徴候と疾患', 15, symptomsDiseasesCompleted, 'symptomsDiseasesCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '薬物の作用とその管理', 10, drugManagementCompleted, 'drugManagementCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '看護における基本技術', 28, basicNursingTechniquesCompleted, 'basicNursingTechniquesCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '日常生活援助技術', 40, dailyLifeAssistanceCompleted, 'dailyLifeAssistanceCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '患者の安全・安楽を守る看護技術', 30, safetyComfortCompleted, 'safetyComfortCompleted'),
-              const SizedBox(height: 10),
-              _buildCategoryButton(context, '診療に伴う看護技術', 53, nursingProceduresCompleted, 'nursingProceduresCompleted'),
-              const SizedBox(height: 20),
+              _buildCategoryListTile(context, '健康の定義と理解', 19, healthDefinitionCompleted, 'healthDefinitionCompleted'),
+              _buildCategoryListTile(context, '健康に影響する要因', 23, healthFactorsCompleted, 'healthFactorsCompleted'),
+              _buildCategoryListTile(context, '看護で活用する社会保障', 10, socialSecurityCompleted, 'socialSecurityCompleted'),
+              _buildCategoryListTile(context, '看護における倫理', 13, nursingEthicsCompleted, 'nursingEthicsCompleted'),
+              _buildCategoryListTile(context, '看護に関わる基本的法律', 9, nursingLawCompleted, 'nursingLawCompleted'),
+              _buildCategoryListTile(context, '人間の特性', 13, humanCharacteristicsCompleted, 'humanCharacteristicsCompleted'),
+              _buildCategoryListTile(context, '人間のライフサイクル各期の特徴と生活', 39, lifeCycleCompleted, 'lifeCycleCompleted'),
+              _buildCategoryListTile(context, '看護の対象としての患者と家族', 9, patientFamilyCompleted, 'patientFamilyCompleted'),
+              _buildCategoryListTile(context, '主な看護活動の場と看護の機能', 5, nursingActivitiesCompleted, 'nursingActivitiesCompleted'),
+              _buildCategoryListTile(context, '人体の構造と機能', 10, bodyStructureCompleted, 'bodyStructureCompleted'),
+              _buildCategoryListTile(context, '徴候と疾患', 15, symptomsDiseasesCompleted, 'symptomsDiseasesCompleted'),
+              _buildCategoryListTile(context, '薬物の作用とその管理', 10, drugManagementCompleted, 'drugManagementCompleted'),
+              _buildCategoryListTile(context, '看護における基本技術', 28, basicNursingTechniquesCompleted, 'basicNursingTechniquesCompleted'),
+              _buildCategoryListTile(context, '日常生活援助技術', 40, dailyLifeAssistanceCompleted, 'dailyLifeAssistanceCompleted'),
+              _buildCategoryListTile(context, '患者の安全・安楽を守る看護技術', 30, safetyComfortCompleted, 'safetyComfortCompleted'),
+              _buildCategoryListTile(context, '診療に伴う看護技術', 53, nursingProceduresCompleted, 'nursingProceduresCompleted'),
+              const SizedBox(height: 15),
             ],
           ),
         ),
@@ -277,166 +260,129 @@ class _HissyuuListPageState extends State<HissyuuListPage> {
     );
   }
 
-  Widget _buildCategoryButton(BuildContext context, String title, int totalQuestions, int completedQuestions, String category) {
+  Widget _buildCategoryListTile(BuildContext context, String title, int totalQuestions, int completedQuestions, String category) {
     double progress = completedQuestions / totalQuestions;
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      height: 120,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFB3E5FC), Color(0xFF81D4FA), Color(0xFF4FC3F7)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-      ),
-      child: ElevatedButton(
-        onPressed: () async {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                switch (category) {
-                  case 'healthDefinitionCompleted':
-                    return HealthDefinitionQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'healthFactorsCompleted':
-                    return HealthFactorsQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'socialSecurityCompleted':
-                    return SocialSecurityQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'nursingEthicsCompleted':
-                    return NursingEthicsQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'nursingLawCompleted':
-                    return NursingLawQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'humanCharacteristicsCompleted':
-                    return HumanCharacteristicsQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'lifeCycleCompleted':
-                    return LifeCycleQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'patientFamilyCompleted':
-                    return PatientFamilyQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'nursingActivitiesCompleted':
-                    return NursingActivitiesQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'bodyStructureCompleted':
-                    return BodyStructureQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'symptomsDiseasesCompleted':
-                    return SymptomsDiseasesQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'drugManagementCompleted':
-                    return DrugManagementQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'basicNursingTechniquesCompleted':
-                    return BasicNursingTechniquesQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'dailyLifeAssistanceCompleted':
-                    return DailyLifeAssistanceQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'safetyComfortCompleted':
-                    return SafetyComfortTechniquesQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  case 'nursingProceduresCompleted':
-                    return NursingProceduresQuizStartPage(
-                      lastCompletedQuestion: completedQuestions,
-                      onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
-                    );
-                  default:
-                    return Container(); // 必要に応じてデフォルトケースを置き換えてください
-                }
-              },
-            ),
-          );
-          if (result != null) {
-            _updateProgress(category, result);
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.black,
-          minimumSize: const Size(double.infinity, 120),
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30)),
-          textStyle: GoogleFonts.notoSerif(fontSize: 18),
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(title),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: LinearProgressIndicator(
+
+    return Column(
+      children: [
+        ListTile(
+          title: Text(title, style: GoogleFonts.notoSerif(fontSize: 18)),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 5),
+              LinearProgressIndicator(
                 value: progress,
                 backgroundColor: Colors.grey[300],
                 valueColor: const AlwaysStoppedAnimation<Color>(Colors.orange),
                 minHeight: 5,
               ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              '達成率: ${completedQuestions.toString()}/${totalQuestions.toString()}',
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-            ),
-          ],
+              const SizedBox(height: 5),
+              Text(
+                '達成率: ${completedQuestions.toString()}/${totalQuestions.toString()}',
+                style: const TextStyle(fontSize: 14, color: Colors.black),
+              ),
+            ],
+          ),
+          onTap: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  switch (category) {
+                    case 'healthDefinitionCompleted':
+                      return HealthDefinitionQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'healthFactorsCompleted':
+                      return HealthFactorsQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'socialSecurityCompleted':
+                      return SocialSecurityQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'nursingEthicsCompleted':
+                      return NursingEthicsQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'nursingLawCompleted':
+                      return NursingLawQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'humanCharacteristicsCompleted':
+                      return HumanCharacteristicsQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'lifeCycleCompleted':
+                      return LifeCycleQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'patientFamilyCompleted':
+                      return PatientFamilyQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'nursingActivitiesCompleted':
+                      return NursingActivitiesQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'bodyStructureCompleted':
+                      return BodyStructureQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'symptomsDiseasesCompleted':
+                      return SymptomsDiseasesQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'drugManagementCompleted':
+                      return DrugManagementQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'basicNursingTechniquesCompleted':
+                      return BasicNursingTechniquesQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'dailyLifeAssistanceCompleted':
+                      return DailyLifeAssistanceQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'safetyComfortCompleted':
+                      return SafetyComfortTechniquesQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    case 'nursingProceduresCompleted':
+                      return NursingProceduresQuizStartPage(
+                        lastCompletedQuestion: completedQuestions,
+                        onProgressUpdate: (completedQuestions) => _updateProgress(category, completedQuestions),
+                      );
+                    default:
+                      return Container();
+                  }
+                },
+              ),
+            );
+            if (result != null) {
+              _updateProgress(category, result);
+            }
+          },
         ),
-      ),
-    );
-  }
-
-  Widget _buildReviewListButton(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      height: 60,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFFB3E5FC), Color(0xFF81D4FA), Color(0xFF4FC3F7)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-      ),
-
+        const Divider(), // カテゴリ間の区切り線を追加
+      ],
     );
   }
 }

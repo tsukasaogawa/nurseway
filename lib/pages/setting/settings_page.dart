@@ -67,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: const Text('AI相談機能概要'),
+            title: const Text('AI相談機能活用方法・概要'),
             leading: const Icon(Icons.subscriptions),
             onTap: () {
               Navigator.push(
