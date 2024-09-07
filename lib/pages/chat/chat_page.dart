@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // SharedPreferencesをインポート
 
 class ChatPage extends StatefulWidget {
   final String selectedModel;
@@ -23,14 +25,18 @@ class _ChatPageState extends State<ChatPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String userId;
 
-  bool _isSendingMessage = false; // メッセージ送信中のフラグ
-  bool _isLoading = false; // テキスト生成中のアニメーションエフェクトフラグ
-  bool _isAnimating = false; // AIメッセージアニメーションフラグ
+  bool _isSendingMessage = false;
+  bool _isLoading = false;
+  bool _isAnimating = false;
+
+  InterstitialAd? _interstitialAd;
+  int _chatCount = 0; // チャットの回数をカウントする変数
 
   @override
   void initState() {
     super.initState();
     _loadUser();
+    _loadInterstitialAd(); // インタースティシャル広告をロード
   }
 
   Future<void> _loadUser() async {
@@ -38,10 +44,27 @@ class _ChatPageState extends State<ChatPage> {
     if (user != null) {
       userId = user.uid;
       print('User ID: $userId');
+      await _loadChatCount(); // チャットカウントをロード
       _loadChatHistory();
     } else {
       print('No user logged in');
     }
+  }
+
+  // SharedPreferencesからチャットカウントをロード
+  Future<void> _loadChatCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _chatCount = prefs.getInt('chat_count_$userId') ?? 0;
+    });
+    print('Loaded chat count: $_chatCount');
+  }
+
+  // SharedPreferencesにチャットカウントを保存
+  Future<void> _saveChatCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('chat_count_$userId', _chatCount);
+    print('Saved chat count: $_chatCount');
   }
 
   void _loadChatHistory() async {
@@ -120,6 +143,15 @@ class _ChatPageState extends State<ChatPage> {
       _scrollToBottom();
     }
 
+    // チャット回数をカウント
+    _chatCount++;
+    await _saveChatCount(); // チャットカウントを保存
+    if (_chatCount >= 2) {
+      _showInterstitialAd(); // 2回ごとに広告を表示
+      _chatCount = 0; // カウントをリセット
+      await _saveChatCount(); // リセット後のカウントを保存
+    }
+
     setState(() {
       _isSendingMessage = false;
       _isLoading = false;
@@ -128,9 +160,7 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<String> _getChatGptResponse(String message) async {
     final openAiApiKey = dotenv.env['OPENAI_API_KEY'];
-    final googleApiKey = dotenv.env['GOOGLE_CLOUD_API_KEY'];
     const openAiApiUrl = 'https://api.openai.com/v1/chat/completions';
-    const googleApiUrl = 'https://language.googleapis.com/v1/documents:analyzeEntities';
 
     // 最新の6通のメッセージのみを送信
     final List<Map<String, dynamic>> recentMessages = _messages.length <= 5
@@ -155,16 +185,12 @@ class _ChatPageState extends State<ChatPage> {
           'model': widget.selectedModel,
           'messages': filteredMessages,
           'max_tokens': 4096,
-          'temperature': 1,
-          'top_p': 1,
-          'frequency_penalty': 0,
-          'presence_penalty': 0,
         }),
       );
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(utf8.decode(response.bodyBytes));
-                if (responseData.containsKey('choices') && responseData['choices'].isNotEmpty) {
+        if (responseData.containsKey('choices') && responseData['choices'].isNotEmpty) {
           return responseData['choices'][0]['message']['content'].trim();
         } else {
           return 'No response from OpenAI';
@@ -174,44 +200,6 @@ class _ChatPageState extends State<ChatPage> {
       }
     } catch (e) {
       print('Error with OpenAI API: $e');
-      return await _getGoogleCloudResponse(message);
-    }
-  }
-
-  Future<String> _getGoogleCloudResponse(String message) async {
-    final googleApiKey = dotenv.env['GOOGLE_CLOUD_API_KEY'];
-    const googleApiUrl = 'https://language.googleapis.com/v1/documents:analyzeEntities';
-
-    try {
-      final response = await http.post(
-        Uri.parse('$googleApiUrl?key=$googleApiKey'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode({
-          'document': {
-            'type': 'PLAIN_TEXT',
-            'content': message,
-          },
-          'encodingType': 'UTF8',
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
-        if (responseData.containsKey('entities')) {
-          List<dynamic> entities = responseData['entities'];
-          return entities.map((entity) => entity['name']).join(', ');
-        } else {
-          return 'No entities found';
-        }
-      } else {
-        print('Error: ${response.statusCode}');
-        print('Response body: ${response.body}');
-        return 'Error: ${response.statusCode}';
-      }
-    } catch (e) {
-      print('Error with Google Cloud API: $e');
       return 'Error processing the message';
     }
   }
@@ -222,6 +210,34 @@ class _ChatPageState extends State<ChatPage> {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
       }
     });
+  }
+
+  // インタースティシャル広告をロードするメソッド
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-3940256099942544/4411468910', // 広告ユニットIDを指定
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          _interstitialAd = ad;
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('InterstitialAd failed to load: $error');
+          _interstitialAd = null;
+        },
+      ),
+    );
+  }
+
+  // インタースティシャル広告を表示するメソッド
+  void _showInterstitialAd() {
+    if (_interstitialAd != null) {
+      _interstitialAd!.show();
+      _interstitialAd = null; // 広告を表示したら再度ロードする
+      _loadInterstitialAd(); // 次回のために広告をロード
+    } else {
+      print('Interstitial ad is not ready yet.');
+    }
   }
 
   @override
@@ -375,3 +391,4 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 }
+

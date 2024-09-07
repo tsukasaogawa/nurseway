@@ -100,7 +100,7 @@ class _BeautyQuizChallengePageState extends State<BeautyQuizChallengePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
         child: AppBar(
-          title: const Text('美容4択チャレンジ'),
+          title: const Text('美容問題'),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(

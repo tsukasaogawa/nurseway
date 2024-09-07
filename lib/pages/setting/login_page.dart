@@ -70,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // 背景色を白に設定
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
               TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
-                                    labelText: 'メールアドレス',
+                  labelText: 'メールアドレス',
                   labelStyle: TextStyle(color: Colors.grey),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),

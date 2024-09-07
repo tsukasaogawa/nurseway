@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Hissyuu/hissyuu_list_page.dart';
-import 'Ippan/ippan_list_page.dart';
+import 'Hissyuu AI/hissyuu_list_page.dart';
+import 'Ippankakomon/ippan_list_page.dart';
 
 
 class KokkashikenkakoMondaiPage extends StatefulWidget {

@@ -14,19 +14,12 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')?.toInteger() ?: 1
+def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0'
 
 android {
     namespace 'com.otmhvecu.nurseway_app'
-    compileSdkVersion 30 // 例としてのバージョン
+    compileSdkVersion 33 // compileSdkVersion を33に設定
     ndkVersion '21.3.6528147' // 例としてのバージョン
 
     compileOptions {
@@ -44,9 +37,9 @@ android {
 
     defaultConfig {
         applicationId "com.otmhvecu.nurseway_app"
-        minSdkVersion 21 // 例としてのバージョン
-        targetSdkVersion 30 // 例としてのバージョン
-        versionCode flutterVersionCode.toInteger()
+        minSdkVersion 21 // minSdkVersionは21に設定
+        targetSdkVersion 33 // targetSdkVersion を33に設定
+        versionCode flutterVersionCode
         versionName flutterVersionName
 
         multiDexEnabled true

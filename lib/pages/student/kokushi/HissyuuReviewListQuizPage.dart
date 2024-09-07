@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../models/quiz_question.dart';
-import 'Hissyuu/hissyuu_model/hissyuu_progress_service.dart';
-import 'Hissyuu/hissyuu_model/hissyuu_quiz_data.dart';
+import 'Hissyuu AI/hissyuu_model/hissyuu_progress_service.dart';
+import 'Hissyuu AI/hissyuu_model/hissyuu_quiz_data.dart';
 
 class HissyuuReviewListQuizPage extends StatefulWidget {
   const HissyuuReviewListQuizPage({super.key});

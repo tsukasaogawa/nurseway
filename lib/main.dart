@@ -11,6 +11,7 @@ import 'package:nurseway_app/pages/setting/settings_page.dart';
 import 'package:nurseway_app/constants/tab_item.dart';
 import 'package:nurseway_app/pages/home_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart'; // 追加: Google Mobile Ads パッケージをインポート
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,9 @@ void main() async {
   await Hive.openBox('filters');
   await Hive.openBox('favorites');
 
+  // Google Mobile Ads SDK の初期化
+  await _initGoogleMobileAds();
+
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool agreedToTerms = prefs.getBool('agreedToTerms') ?? false;
   bool isLoggedIn = FirebaseAuth.instance.currentUser != null;
@@ -30,6 +34,11 @@ void main() async {
     agreedToTerms: agreedToTerms,
     isLoggedIn: isLoggedIn,
   ));
+}
+
+// Google Mobile Ads SDK の初期化メソッド
+Future<InitializationStatus> _initGoogleMobileAds() {
+  return MobileAds.instance.initialize();
 }
 
 class MyApp extends StatelessWidget {
@@ -81,7 +90,6 @@ class _MainAppPageState extends State<MainAppPage> {
     TabItem.home: GlobalKey<NavigatorState>(),
     TabItem.config: GlobalKey<NavigatorState>(),
   };
-
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,7 @@ class StudentPage extends StatelessWidget {
                 page: AICategorySelectionPage(
                   onUpdateProgress: (double progress) {}, // 必須のパラメータとして渡す
                 ),
-                subtitles: ['必修問題'],
+                subtitles: ['必修問題', '一般問題'],
               ),
               const SizedBox(height: 20),
               _buildGradientButton(

@@ -34,7 +34,7 @@ class BeautyNursingPage extends StatelessWidget {
               const SizedBox(height: 10), // Top margin
               _buildGradientButtonWithSubtitle(
                 context,
-                title: '美容4択チャレンジ',
+                title: '美容問題',
                 icon: Icons.quiz,
                 page: const BeautyQuizChallengePage(),
                 subtitles: ['オリジナル問題'],

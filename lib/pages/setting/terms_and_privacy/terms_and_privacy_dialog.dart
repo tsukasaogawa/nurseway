@@ -57,10 +57,10 @@ class _TermsAndPrivacyDialogState extends State<TermsAndPrivacyDialog> {
                       color: Colors.white, // 背景を白に設定
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Scrollbar(
+                    child: const Scrollbar(
                       child: SingleChildScrollView(
-                        padding: const EdgeInsets.all(8.0),
-                        child: const Text(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
                           privacyPolicyText,
                           style: TextStyle(fontSize: 14),
                         ),
@@ -79,10 +79,10 @@ class _TermsAndPrivacyDialogState extends State<TermsAndPrivacyDialog> {
                       color: Colors.white, // 背景を白に設定
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Scrollbar(
+                    child: const Scrollbar(
                       child: SingleChildScrollView(
-                        padding: const EdgeInsets.all(8.0),
-                        child: const Text(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
                           termsOfServiceText,
                           style: TextStyle(fontSize: 14),
                         ),

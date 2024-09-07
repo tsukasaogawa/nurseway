@@ -21,15 +21,15 @@
 	<key>STORAGE_BUCKET</key>
 	<string>nursewayapp.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<true/> <!-- 広告が有効の場合 -->
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<true/> <!-- Firebase Analyticsを有効にする場合 -->
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:194883924746:ios:b0c165d7e56071ec2dc0f3</string>
 </dict>

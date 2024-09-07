@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nurseway_app/pages/JobSupport/recommendedjob_sites_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'AI_usage_examples_page.dart';
-import 'JobTips/job_tips_page.dart';
+import 'JobTips/job_tips_page.dart'; // Add this for URL launching
 
 class JobSupportPage extends StatefulWidget {
   const JobSupportPage({super.key});
@@ -12,8 +13,6 @@ class JobSupportPage extends StatefulWidget {
 }
 
 class _JobSupportPageState extends State<JobSupportPage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +39,12 @@ class _JobSupportPageState extends State<JobSupportPage> {
           children: <Widget>[
             _buildGradientButton(
               context,
-              title: 'オススメ転職サイト',
-              subtitle: '準備中',
+              title: 'エージェントに相談',
+              subtitle: '公式LINE', // サブタイトルに「公式LINE」を追加
               icon: Icons.web,
-              page: RecommendedJobSitesPage(),
+              url: 'https://line.me/ti/p/rFgUkb6aL_', // Add the URL here
               colors: [const Color(0xFFC8E6C9), const Color(0xFFA5D6A7), const Color(0xFF81C784)],
-              enabled: false,
+              enabled: true,
             ),
             const SizedBox(height: 20),
             _buildGradientButton(
@@ -63,7 +62,7 @@ class _JobSupportPageState extends State<JobSupportPage> {
               title: 'AI相談活用例',
               subtitle: '',
               icon: Icons.lightbulb,
-              page: AIUsageExamplesPage(),
+              page: const AIUsageExamplesPage(),
               colors: [const Color(0xFFC8E6C9), const Color(0xFFA5D6A7), const Color(0xFF81C784)],
               enabled: true,
             ),
@@ -76,8 +75,9 @@ class _JobSupportPageState extends State<JobSupportPage> {
   Widget _buildGradientButton(BuildContext context, {
     required String title,
     required String subtitle,
-    required IconData icon,
-    required Widget page,
+    IconData? icon,
+    Widget? page,
+    String? url, // Add URL parameter here
     required List<Color> colors,
     required bool enabled,
   }) {
@@ -86,6 +86,7 @@ class _JobSupportPageState extends State<JobSupportPage> {
       subtitle: subtitle,
       icon: icon,
       page: page,
+      url: url, // Pass the URL here
       colors: colors,
       enabled: enabled,
     );
@@ -95,8 +96,9 @@ class _JobSupportPageState extends State<JobSupportPage> {
 class AnimatedButton extends StatefulWidget {
   final String title;
   final String subtitle;
-  final IconData icon;
-  final Widget page;
+  final IconData? icon;
+  final Widget? page;
+  final String? url; // URL parameter
   final List<Color> colors;
   final bool enabled;
 
@@ -104,8 +106,9 @@ class AnimatedButton extends StatefulWidget {
     super.key,
     required this.title,
     required this.subtitle,
-    required this.icon,
-    required this.page,
+    this.icon,
+    this.page,
+    this.url, // URL parameter
     required this.colors,
     required this.enabled,
   });
@@ -118,10 +121,20 @@ class _AnimatedButtonState extends State<AnimatedButton> {
   bool _isPressed = false;
 
   void _navigateToPage() {
-    if (widget.enabled) {
+    if (widget.url != null) {
+      _launchURL(widget.url!); // Launch the URL if it's provided
+    } else if (widget.page != null && widget.enabled) {
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => widget.page),
+        MaterialPageRoute(builder: (context) => widget.page!),
       );
+    }
+  }
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -130,25 +143,25 @@ class _AnimatedButtonState extends State<AnimatedButton> {
     return GestureDetector(
       onTapDown: widget.enabled
           ? (_) {
-              setState(() {
-                _isPressed = true;
-              });
-            }
+        setState(() {
+          _isPressed = true;
+        });
+      }
           : null,
       onTapUp: widget.enabled
           ? (_) {
-              setState(() {
-                _isPressed = false;
-              });
-              _navigateToPage();
-            }
+        setState(() {
+          _isPressed = false;
+        });
+        _navigateToPage();
+      }
           : null,
       onTapCancel: widget.enabled
           ? () {
-              setState(() {
-                _isPressed = false;
-              });
-            }
+        setState(() {
+          _isPressed = false;
+        });
+      }
           : null,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
@@ -166,12 +179,12 @@ class _AnimatedButtonState extends State<AnimatedButton> {
           boxShadow: _isPressed
               ? []
               : [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 8.0,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 8.0,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: Material(
           color: Colors.transparent,
@@ -187,7 +200,8 @@ class _AnimatedButtonState extends State<AnimatedButton> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(widget.icon, color: widget.enabled ? Colors.black : Colors.grey, size: 32),
+                      if (widget.icon != null)
+                        Icon(widget.icon, color: widget.enabled ? Colors.black : Colors.grey, size: 32),
                       const SizedBox(width: 10),
                       Text(
                         widget.title,
